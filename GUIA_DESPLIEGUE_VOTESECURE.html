@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Guía Oficial de Despliegue — VoteSecure FESC</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 18mm 16mm 18mm 16mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1e293b;
+      background: #ffffff;
+      line-height: 1.55;
+      font-size: 11pt;
+    }
+
+    .header-banner {
+      background: linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #991b1b 100%);
+      color: #ffffff;
+      padding: 24px 28px;
+      border-radius: 14px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.25);
+    }
+
+    .header-banner .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-size: 8.5pt;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .header-banner h1 {
+      font-size: 20pt;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .header-banner p {
+      font-size: 9.5pt;
+      color: #fee2e2;
+      font-weight: 500;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 22px;
+      font-size: 9pt;
+    }
+
+    .meta-item strong {
+      color: #0f172a;
+      display: inline-block;
+      min-width: 110px;
+    }
+
+    .meta-item span {
+      color: #475569;
+    }
+
+    h2 {
+      font-size: 13.5pt;
+      font-weight: 800;
+      color: #0f172a;
+      border-bottom: 2px solid #fee2e2;
+      padding-bottom: 6px;
+      margin-top: 22px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2 .num {
+      background: #dc2626;
+      color: #ffffff;
+      font-size: 9.5pt;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-weight: 800;
+    }
+
+    h3 {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #334155;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+      font-size: 9.5pt;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 12px;
+      font-size: 9.5pt;
+      color: #334155;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 8.5pt;
+      background: #f1f5f9;
+      color: #b91c1c;
+      padding: 2px 6px;
+      border-radius: 5px;
+      border: 1px solid #e2e8f0;
+    }
+
+    pre {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 8pt;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 12px 14px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 8px 0 14px 0;
+      line-height: 1.45;
+      border: 1px solid #1e293b;
+    }
+
+    pre .comment { color: #64748b; }
+    pre .keyword { color: #f43f5e; font-weight: 600; }
+    pre .string { color: #34d399; }
+    pre .var { color: #38bdf8; }
+
+    .callout {
+      background: #fef2f2;
+      border-left: 4px solid #dc2626;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      margin: 12px 0;
+      font-size: 9pt;
+      color: #991b1b;
+    }
+
+    .callout.tip {
+      background: #f0fdf4;
+      border-left-color: #16a34a;
+      color: #166534;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 3px;
+      font-weight: 700;
+    }
+
+    .arch-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 12px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      line-height: 1.4;
+      color: #1e293b;
+      white-space: pre;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 8.5pt;
+    }
+
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 7px 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #f8fafc;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .page-break {
+      page-break-after: always;
+      break-after: page;
+    }
+
+    .footer {
+      margin-top: 26px;
+      padding-top: 10px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.5pt;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO PRINCIPAL -->
+  <div class="header-banner">
+    <div class="badge">Documento de Ingeniería &middot; FESC 2026</div>
+    <h1>🗳️ VoteSecure — Guía Oficial de Despliegue</h1>
+    <p>Manual técnico paso a paso para el aprovisionamiento, compilación y despliegue del sistema de votación descentralizado en producción.</p>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-item"><strong>Asignatura:</strong> <span>Tecnologías Emergentes</span></div>
+    <div class="meta-item"><strong>Docente:</strong> <span>Ing. Jenny Esmeralda Suárez</span></div>
+    <div class="meta-item"><strong>Estudiante:</strong> <span>Carlos Daniel Daza Medina</span></div>
+    <div class="meta-item"><strong>Programa:</strong> <span>Ingeniería de Software — VIII Semestre</span></div>
+    <div class="meta-item"><strong>Institución:</strong> <span>Fundación de Estudios Superiores Comfanorte (FESC)</span></div>
+    <div class="meta-item"><strong>Entorno Objetivo:</strong> <span>Producción Cloud (Netlify + Google Firebase Firestore + Web3)</span></div>
+  </div>
+
+  <!-- SECCIÓN 1: REQUISITOS PREVIOS -->
+  <h2><span class="num">1</span> Requisitos Previos del Sistema</h2>
+  <p>Antes de iniciar el despliegue, verifique que su entorno de desarrollo cuente con el siguiente software instalado:</p>
+  <ul>
+    <li><strong>Node.js:</strong> Versión <code>v18.x</code> o superior (Recomendado <code>v20+ LTS</code>).</li>
+    <li><strong>NPM:</strong> Versión <code>9.x</code> o superior.</li>
+    <li><strong>Navegador Web Moderno:</strong> Google Chrome, Microsoft Edge, Brave o Firefox.</li>
+    <li><strong>Billetera Web3 (Opcional):</strong> Extensión o app móvil de <strong>MetaMask</strong> configurada.</li>
+    <li><strong>Cuenta de Google:</strong> Para acceder a la consola de Firebase.</li>
+    <li><strong>Cuenta de Netlify:</strong> Para el hosting estático de alta disponibilidad.</li>
+  </ul>
+
+  <!-- SECCIÓN 2: ARQUITECTURA DE DESPLIEGUE -->
+  <h2><span class="num">2</span> Arquitectura de Despliegue del Sistema</h2>
+  <p>VoteSecure implementa una arquitectura desacoplada para garantizar cero fricción, alta concurrencia y máxima audibilidad:</p>
+
+  <div class="arch-box">┌───────────────────────────────────────────────────────────────────────────┐
+│                      TOPOLOGÍA DE PRODUCCIÓN VOTESECURE                   │
+├───────────────────────────────────────────────────────────────────────────┤
+│                                                                           │
+│   [ Dispositivos Móviles ]              [ Pantalla Central / Proyector ] │
+│   (Estudiantes / Escaneo QR)             (Docente / Comité Electoral)     │
+│             │                                           │                 │
+│             ▼                                           ▼                 │
+│   ┌───────────────────────────────────────────────────────────────┐       │
+│   │               FRONTEND HOSTING (NETLIFY PWA)                  │       │
+│   │   • React 19 + Vite + Tailwind CSS                            │       │
+│   │   • Dominio HTTPS global con CDN de baja latencia             │       │
+│   └───────────────────────────────┬───────────────────────────────┘       │
+│                                   │                                       │
+│                                   ▼                                       │
+│   ┌───────────────────────────────────────────────────────────────┐       │
+│   │            CAPA CLOUD REACTIVA (FIREBASE FIRESTORE)           │       │
+│   │   • Colección /elections/consejo_actual (Estado de Urnas)     │       │
+│   │   • Colección /candidates (Candidatos y Conteo Atómico)       │       │
+│   │   • Colección /votes (Control de Sufragio y Cédulas)          │       │
+│   │   • Colección /audit_ledger (Libro de Auditoría TXID)         │       │
+│   └───────────────────────────────┬───────────────────────────────┘       │
+│                                   │                                       │
+│                                   ▼                                       │
+│   ┌───────────────────────────────────────────────────────────────┐       │
+│   │             CAPA BLOCKCHAIN (ETHEREUM / SOLIDITY)             │       │
+│   │   • Smart Contract `Voting.sol`                               │       │
+│   │   • Inmutabilidad criptográfica y certificación de eventos    │       │
+│   └───────────────────────────────────────────────────────────────┘       │
+└───────────────────────────────────────────────────────────────────────────┘</div>
+
+  <div class="page-break"></div>
+
+  <!-- SECCIÓN 3: CONFIGURACIÓN DE FIREBASE FIRESTORE -->
+  <h2><span class="num">3</span> Configuración de la Base de Datos en la Nube (Firebase)</h2>
+  <p>La persistencia y sincronización multi-dispositivo en tiempo real se gestiona mediante Google Cloud Firestore:</p>
+
+  <ol>
+    <li>Ingrese a <a href="https://console.firebase.google.com/">console.firebase.google.com</a> con su cuenta de Google.</li>
+    <li>Haga clic en <strong>"Crear un proyecto"</strong> y asígnele el nombre (ej. <code>vote-fesc</code>).</li>
+    <li>En el menú lateral, diríjase a <strong>Compilación &rarr; Firestore Database</strong> y haga clic en <strong>"Crear base de datos"</strong>.</li>
+    <li>Seleccione la ubicación predeterminada (ej. <code>nam5</code> o <code>us-central</code>).</li>
+    <li>
+      <strong>Reglas de Seguridad:</strong> Seleccione <strong>"Iniciar en modo de prueba"</strong>. Esto generará la siguiente regla para permitir lectura y escritura abierta durante la jornada electoral:
+      <pre>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      <span class="keyword">allow</span> read, write: <span class="keyword">if</span> <span class="keyword">true</span>;
+    }
+  }
+}</pre>
+    </li>
+    <li>
+      <strong>Registrar la Aplicación Web:</strong>
+      <ul>
+        <li>En el engranaje superior <code>⚙️</code> seleccione <strong>Configuración del proyecto</strong> &rarr; pestaña <strong>General</strong>.</li>
+        <li>En la sección <strong>"Tus apps"</strong>, presione el ícono Web <code>&lt;/&gt;</code>.</li>
+        <li>Asigne el alias <code>votesecure</code> y presione <strong>Registrar app</strong>.</li>
+        <li>Copie el objeto de configuración <code>firebaseConfig</code> obtenido:</li>
+      </ul>
+      <pre><span class="keyword">const</span> <span class="var">firebaseConfig</span> = {
+  apiKey: <span class="string">"AIzaSyALnyvSqr8i4uJ8naO1xs9d0PujhQaKc5k"</span>,
+  authDomain: <span class="string">"vote-fesc.firebaseapp.com"</span>,
+  projectId: <span class="string">"vote-fesc"</span>,
+  storageBucket: <span class="string">"vote-fesc.firebasestorage.app"</span>,
+  messagingSenderId: <span class="string">"299439571024"</span>,
+  appId: <span class="string">"1:299439571024:web:ca96edce4fc3bec28d5155"</span>,
+  measurementId: <span class="string">"G-JVJ78CN8CL"</span>
+};</pre>
+    </li>
+    <li>Verifique que este objeto esté configurado en <code>frontend/src/firebase.js</code> bajo la constante <code>DEFAULT_FIREBASE_CONFIG</code>.</li>
+  </ol>
+
+  <!-- SECCIÓN 4: COMPILACIÓN Y DESPLIEGUE EN NETLIFY -->
+  <h2><span class="num">4</span> Compilación y Despliegue del Frontend (Netlify)</h2>
+
+  <h3>4.1. Instalación de Dependencias y Compilación</h3>
+  <p>Abra una terminal en el directorio <code>frontend</code> y ejecute:</p>
+  <pre><span class="comment"># 1. Navegar a la carpeta frontend</span>
+cd voting-app/frontend
+
+<span class="comment"># 2. Instalar dependencias requeridas</span>
+npm install
+
+<span class="comment"># 3. Compilar el paquete optimizado de producción</span>
+npm run build</pre>
+
+  <div class="callout tip">
+    <strong>Salida de Compilación:</strong>
+    El comando genera una carpeta llamada <code>dist/</code> que contiene los assets minificados, el código CSS optimizado y el HTML listo para servir en cualquier CDN mundial.
+  </div>
+
+  <h3>4.2. Despliegue en Netlify (Método Inmediato por Netlify Drop)</h3>
+  <ol>
+    <li>Inicie sesión en <a href="https://app.netlify.com/">app.netlify.com</a>.</li>
+    <li>Acceda a su proyecto (ej. <code>fancy-sunflower-aa05c5</code>) y vaya a la pestaña <strong>Deploys</strong>.</li>
+    <li>En la sección inferior que indica <em>"Need to update your site? Drag and drop your site output folder here"</em>, arrastre y suelte la carpeta <code>frontend/dist</code>.</li>
+    <li>El despliegue tarda aproximadamente <strong>5 segundos</strong> en reflejarse con estado <span style="color:#16a34a; font-weight:700;">Published</span>.</li>
+    <li>Su sitio web estará disponible públicamente con certificado SSL automático (HTTPS).</li>
+  </ol>
+
+  <div class="page-break"></div>
+
+  <!-- SECCIÓN 5: DESPLIEGUE DEL SMART CONTRACT -->
+  <h2><span class="num">5</span> Despliegue del Smart Contract (Solidity / Hardhat)</h2>
+  <p>El núcleo de inmutabilidad reside en el contrato <code>Voting.sol</code>, ubicado en <code>blockchain/contracts/Voting.sol</code>.</p>
+
+  <h3>5.1. Compilación del Contrato Inteligente</h3>
+  <pre><span class="comment"># Navegar al directorio blockchain</span>
+cd voting-app/blockchain
+
+<span class="comment"># Compilar contratos con Hardhat</span>
+npx hardhat compile</pre>
+
+  <h3>5.2. Despliegue a Red Local (Hardhat Node)</h3>
+  <pre><span class="comment"># Terminal 1: Iniciar nodo Ethereum local</span>
+npx hardhat node
+
+<span class="comment"># Terminal 2: Ejecutar script de despliegue</span>
+npx hardhat run scripts/deploy.js --network localhost</pre>
+
+  <h3>5.3. Despliegue a Red Pública Testnet (Sepolia)</h3>
+  <p>Configure sus variables en <code>blockchain/hardhat.config.js</code> con su clave de infura/alchemy y su clave privada:</p>
+  <pre><span class="comment"># Desplegar en red de pruebas Sepolia</span>
+npx hardhat run scripts/deploy.js --network sepolia</pre>
+  <p>Una vez desplegado, copie la dirección resultante del contrato y el archivo ABI generado (<code>artifacts/contracts/Voting.sol/Voting.json</code>) al frontend.</p>
+
+  <!-- SECCIÓN 6: MANUAL DE OPERACIÓN EN VIVO (PRESENTACIÓN) -->
+  <h2><span class="num">6</span> Operación en Vivo del Comité Electoral</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fase</th>
+        <th>Acción del Administrador</th>
+        <th>Resultado en el Sistema</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Ingreso</strong></td>
+        <td>Clic en botón <em>"Acceso Consejo"</em> &rarr; Clave: <code>fesc2026</code>.</td>
+        <td>Se abre el panel institucional de administración.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Jornada</strong></td>
+        <td>En pestaña <em>"Consejo de Votación"</em>, verificar que las urnas estén <strong>Abiertas</strong>.</td>
+        <td>Habilita la recepción de votos en Firestore y Blockchain.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Candidatos</strong></td>
+        <td>En pestaña <em>"Candidatos"</em>, inscribir los candidatos oficiales con sus lemas.</td>
+        <td>Aparecen instantáneamente en la papeleta de todos los teléfonos móviles.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Votación</strong></td>
+        <td>Proyectar la pantalla principal con el <strong>Código QR</strong> visible.</td>
+        <td>Los estudiantes escanean el QR, ingresan su cédula y sufragan en 10 segundos.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Escrutinio</strong></td>
+        <td>Presionar el botón <em>"Resultados"</em> en la barra superior.</td>
+        <td>Muestra los gráficos de porcentaje y total de votos actualizados en vivo.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Auditoría</strong></td>
+        <td>Presionar <em>"Auditoría"</em> e ingresar el TXID Hash de un voto.</td>
+        <td>Despliega el certificado digital de sufragio con marca de tiempo oficial.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECCIÓN 7: CHECKLIST FINAL -->
+  <h2><span class="num">7</span> Checklist de Verificación para Sustentación</h2>
+  <ul>
+    <li>[x] Firestore Database en estado <strong>Habilitado</strong> y en modo de prueba.</li>
+    <li>[x] Credenciales de <code>firebaseConfig</code> vinculadas en <code>frontend/src/firebase.js</code>.</li>
+    <li>[x] Build de producción <code>dist/</code> generado sin errores de sintaxis o bundle.</li>
+    <li>[x] Sitio activo y publicado en Netlify bajo protocolo seguro HTTPS.</li>
+    <li>[x] Código QR apuntando a la URL pública para escaneo desde cámaras móviles.</li>
+    <li>[x] Contraseña administrativa <code>fesc2026</code> comprobada.</li>
+    <li>[x] Prueba de intento de doble voto con misma cédula bloqueada exitosamente.</li>
+  </ul>
+
+  <div class="footer">
+    <span>VoteSecure &copy; 2026 &middot; FESC &middot; Tecnologías Emergentes</span>
+    <span>Documento Técnico de Despliegue en Producción &middot; Ing. Jenny Esmeralda Suárez</span>
+  </div>
+
+</body>
+</html>

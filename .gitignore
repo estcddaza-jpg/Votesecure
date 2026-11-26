@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+*/node_modules/
+.pnp
+.pnp.js
+
+# Testing and coverage
+coverage/
+
+# Production build output
+# (Keep dist if deploying via repo or un-comment if needed)
+# frontend/dist/
+
+# Hardhat & Solc
+blockchain/cache/
+*.tsbuildinfo
+
+# Vite & Bundler cache
+.vite-temp/
+*/.vite-temp/
+*.local
+
+# Environment variables
+.env
+.env*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archives
+*.zip
